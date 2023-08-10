@@ -4,6 +4,7 @@ import 'package:rick_n_morty_test/ui/providers/characters/character_provider.dar
 import 'package:rick_n_morty_test/ui/providers/initial_loading_provider.dart';
 import 'package:rick_n_morty_test/ui/widgets/char_list_view.dart';
 import 'package:rick_n_morty_test/ui/widgets/custom_app_bar.dart';
+import 'package:rick_n_morty_test/ui/widgets/custom_bottom_navigation_bar.dart';
 import 'package:rick_n_morty_test/ui/widgets/full_screen_loader.dart';
 
 class CharacterScreen extends StatelessWidget {
@@ -13,9 +14,9 @@ class CharacterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(flexibleSpace: const CustomAppBar()),
-      body: _CharacterView(),
-    );
+        appBar: AppBar(flexibleSpace: const CustomAppBar()),
+        body: const _CharacterView(),
+        bottomNavigationBar: const CustomBottomNavigaton());
   }
 }
 

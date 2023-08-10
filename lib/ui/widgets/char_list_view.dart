@@ -99,6 +99,20 @@ class _Slide extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
             )),
+        Positioned.fill(
+            right: 10,
+            child: Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                'Status:${character.status}',
+                maxLines: 1,
+                style: TextStyle(
+                    fontSize: 20,
+                    color:
+                        character.status == 'Alive' ? Colors.green : Colors.red,
+                    fontWeight: FontWeight.w500),
+              ),
+            )),
       ]),
     );
   }
