@@ -8,7 +8,7 @@ class CharacterRepositoryImpl extends CharacterRepository {
   CharacterRepositoryImpl(this.dataSource);
 
   @override
-  Future<CharacterEntity> getCharacters() {
-    return dataSource.getCharacters();
+  Future<List<CharacterEntity>> getCharacters({int page = 1}) {
+    return dataSource.getCharacters(page: page);
   }
 }

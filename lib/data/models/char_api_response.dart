@@ -1,6 +1,8 @@
+import 'package:rick_n_morty_test/data/models/char_model.dart';
+
 class ApiResponse {
   final Info info;
-  final List<Result> results;
+  final List<CharacterModel> results;
 
   ApiResponse({
     required this.info,
@@ -9,8 +11,8 @@ class ApiResponse {
 
   factory ApiResponse.fromJson(Map<String, dynamic> json) => ApiResponse(
         info: Info.fromJson(json["info"]),
-        results:
-            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+        results: List<CharacterModel>.from(
+            json["results"].map((x) => CharacterModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
