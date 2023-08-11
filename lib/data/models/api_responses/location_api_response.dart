@@ -26,7 +26,7 @@ class Info {
   final int count;
   final int pages;
   final String next;
-  final String prev;
+  final dynamic prev;
 
   Info({
     required this.count,

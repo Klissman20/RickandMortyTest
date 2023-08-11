@@ -16,7 +16,6 @@ class CharacterViewState extends ConsumerState<CharacterView> {
   @override
   void initState() {
     super.initState();
-    super.initState();
     ref.read(characterListProvider.notifier).loadNextPage();
   }
 

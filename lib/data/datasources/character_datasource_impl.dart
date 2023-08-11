@@ -1,19 +1,20 @@
 import 'package:rick_n_morty_test/data/mappers/char_mapper.dart';
+import 'package:rick_n_morty_test/data/mappers/location_mapper.dart';
 import 'package:rick_n_morty_test/data/models/api_responses/char_api_response.dart';
+import 'package:rick_n_morty_test/data/models/api_responses/location_api_response.dart';
 import 'package:rick_n_morty_test/domain/datasources/character_datasource.dart';
 import 'package:rick_n_morty_test/domain/entities/char_entity.dart';
 import 'package:dio/dio.dart';
+import 'package:rick_n_morty_test/domain/entities/location_entity.dart';
 
-class CharacterDataSourceImpl extends CharacterDataSource {
+class DataSourceImpl extends DataSource {
   final dio = Dio(BaseOptions(baseUrl: 'https://rickandmortyapi.com/api'));
 
   List<CharacterEntity> _jsonToCharacter(Map<String, dynamic> json) {
     final charDBResponse = CharacterApiResponse.fromJson(json);
-
     final List<CharacterEntity> characters = charDBResponse.results
         .map((characterdb) => CharacterMapper.characterDbToEntity(characterdb))
         .toList();
-
     return characters;
   }
 
@@ -23,5 +24,21 @@ class CharacterDataSourceImpl extends CharacterDataSource {
         await dio.get('/character', queryParameters: {'page': page});
 
     return _jsonToCharacter(response.data);
+  }
+
+  List<LocationEntity> _jsonToLocation(Map<String, dynamic> json) {
+    final locationDBResponse = LocationApiResponse.fromJson(json);
+    final List<LocationEntity> locations = locationDBResponse.results
+        .map((locationdb) => LocationMapper.characterDbToEntity(locationdb))
+        .toList();
+    return locations;
+  }
+
+  @override
+  Future<List<LocationEntity>> getLocations({int page = 1}) async {
+    final response =
+        await dio.get('/location', queryParameters: {'page': page});
+
+    return _jsonToLocation(response.data);
   }
 }
