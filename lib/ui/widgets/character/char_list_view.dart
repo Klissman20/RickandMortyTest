@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rick_n_morty_test/domain/entities/char_entity.dart';
 
 class CharacterListView extends StatefulWidget {
@@ -68,8 +67,6 @@ class _Slide extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blueGrey.withOpacity(0.3),
-        border: Border.all(color: Colors.blueGrey.withOpacity(0.8), width: 3),
         borderRadius: BorderRadius.circular(10),
       ),
       padding: const EdgeInsets.all(8.0),
@@ -157,6 +154,128 @@ class _CharacterImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> dialogBuilder(BuildContext context) {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              elevation: 2,
+              scrollable: true,
+              titlePadding: const EdgeInsets.all(20),
+              actionsPadding: const EdgeInsets.all(10),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.network(
+                      character.image,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: Text(
+                      character.name,
+                      maxLines: 2,
+                      style: const TextStyle(fontSize: 25),
+                    ),
+                  ),
+                ],
+              ),
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Text(
+                        'Status: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(
+                        character.status,
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        'Species: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(character.species,
+                          style: const TextStyle(fontSize: 18)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        'Type: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(character.type,
+                          style: const TextStyle(fontSize: 18)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        'Gender: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Text(character.gender,
+                          style: const TextStyle(fontSize: 18)),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        'Origin: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Expanded(
+                        child: Text(character.origin.name,
+                            maxLines: 2, style: const TextStyle(fontSize: 18)),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        'Location: ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      Expanded(
+                        child: Text(character.location.name,
+                            maxLines: 2, style: const TextStyle(fontSize: 18)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  child: const Text('Close'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+    }
+
     return Image.network(character.image, fit: BoxFit.contain,
         loadingBuilder: (context, child, loadingProgress) {
       if (loadingProgress != null) {
@@ -170,7 +289,7 @@ class _CharacterImage extends StatelessWidget {
         );
       }
       return InkWell(
-        onTap: () => context.push('/character', extra: character),
+        onTap: () => dialogBuilder(context),
         child: FadeInUp(
           delay: const Duration(milliseconds: 150),
           child: Card(
